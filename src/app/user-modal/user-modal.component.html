@@ -1,0 +1,75 @@
+<p>user-modal works!</p>
+<!-- Background overlay -->
+<div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Actualizar Usuario</h2>
+        <!-- Botón para cerrar el modal -->
+        <button (click)="onClose()" class="text-gray-500 hover:text-gray-700">
+          ✖
+        </button>
+      </div>
+  
+      <!-- Formulario para actualizar los datos del usuario -->
+      <form (ngSubmit)="onUpdateUser()">
+        <div class="mb-4">
+          <label class="block text-gray-700">Primer Nombre</label>
+          <input
+            type="text"
+            [(ngModel)]="updatedUser.first_name"
+            name="first_name"
+            class="border rounded w-full p-2"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="block text-gray-700">Primer Apellido</label>
+          <input
+            type="text"
+            [(ngModel)]="updatedUser.last_name"
+            name="last_name"
+            class="border rounded w-full p-2"
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="block text-gray-700">Correo Electrónico</label>
+          <input
+            type="email"
+            [(ngModel)]="updatedUser.email"
+            name="email"
+            class="border rounded w-full p-2"
+            disabled
+          />
+        </div>
+  
+        <div class="mb-4">
+          <label class="block text-gray-700">Área</label>
+          <input
+            type="text"
+            [(ngModel)]="updatedUser.area"
+            name="area"
+            class="border rounded w-full p-2"
+          />
+        </div>
+  
+        <!-- Botones de acción -->
+        <div class="flex justify-end mt-4">
+          <button
+            type="button"
+            (click)="onClose()"
+            class="mr-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Actualizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
