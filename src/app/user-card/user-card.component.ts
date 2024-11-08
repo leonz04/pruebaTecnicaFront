@@ -13,7 +13,12 @@ export class UserCardComponent {
   constructor(private userService: UserService) {}
 
   // Define el tipo del input para que TypeScript reconozca las propiedades de `user`
-  @Input() user: User | undefined; // El tipo ahora es `User`
+  @Input() user: User | null=null; // El tipo ahora es `User`
+
+  @Input() loadUsers: any;
+  selectedUser: User | null = null;  // Acepta `undefined` también
+
+
 
   @Output() updateUser = new EventEmitter<User>();
   @Output() deleteUser = new EventEmitter<number>();
@@ -30,15 +35,27 @@ export class UserCardComponent {
 
   // Método para mostrar el modal de confirmación
   onDeleteUser() {
-    this.showDeleteConfirmation = true; // Mostrar el modal
+    console.log('Usuario a eliminar:', this.user); // Verifica que el id y los datos estén bien
+    this.selectedUser = this.user;
+    this.showDeleteConfirmation = true;
   }
 
   // Método para manejar la confirmación de eliminación
-  onConfirmDelete(isConfirmed: boolean) {
-    if (isConfirmed && this.user) {
-      // Si la eliminación es confirmada, emitir el evento
-      this.deleteUser.emit(this.user.id);
-    }
-    this.showDeleteConfirmation = false; // Ocultar el modal
+ // Método para manejar la confirmación de eliminación
+ onConfirmDelete(isConfirmed: boolean) {
+  if (isConfirmed && this.selectedUser) {
+    this.userService.deleteUser(this.selectedUser.id).subscribe(
+      (response) => {
+        console.log('Usuario eliminado:', response);
+        this.loadUsers();  // Asegúrate de que esta función recargue la lista de usuarios
+      },
+      (error) => {
+        console.error('Error al eliminar el usuario:', error);
+        alert('No se pudo eliminar el usuario.');
+      }
+    );
   }
+  this.showDeleteConfirmation = false;
+  this.selectedUser = null;
+}
 }

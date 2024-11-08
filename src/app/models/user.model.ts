@@ -7,7 +7,7 @@ export interface User {
     country:string;
     identification_type:string;
     identification_number:string;
-    hire_date:Date|string;
+    hire_date:string;
     area:string;
     status:string
 

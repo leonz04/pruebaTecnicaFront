@@ -15,14 +15,18 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.loadUsers();
-  }
+  // Obtener todos los usuarios cuando el componente se inicie
+  this.userService.getUsers().subscribe((data: User[]) => {
+    this.users = data;
+    this.filteredUsers = data; // Inicialmente, todos los usuarios se muestran
+  });  }
 
   // Método para obtener los usuarios del servicio
   loadUsers() {
     this.userService.getUsers().subscribe(
       (data) => {
         this.users = data;
+        this.filteredUsers = data; // Reinicia el filtro al cargar usuarios
       },
       (error) => {
         console.error('Error al obtener los usuarios', error);
@@ -30,23 +34,7 @@ export class UserListComponent implements OnInit {
     );
   }
 
-    // Método para eliminar un usuario
-    handleDelete(id: number) {
-      // Mostrar una confirmación antes de eliminar
-      const confirmed = confirm(`¿Estás seguro de que deseas eliminar a ${name}?`);
-
-      if (confirmed) {
-        this.userService.deleteUser(id).subscribe(
-          (response) => {
-            console.log('Usuario eliminado:', response);
-            // Aquí puedes actualizar la lista de usuarios si es necesario
-          },
-          (error) => {
-            console.error('Error al eliminar el usuario:', error);
-          }
-        );
-      }
-    }
+    
 
   // Método para abrir el modal con el usuario seleccionado
   handleUpdate(user: any) {
@@ -95,4 +83,26 @@ export class UserListComponent implements OnInit {
      // Aquí puedes agregar la lógica para enviar el usuario al backend, etc.
      this.closeRegisterModal(); // Cierra el modal después del registro
    }
-}
+   filteredUsers: User[] = []; // Lista de usuarios filtrados
+
+
+   onFilterChanged(filters: any): void {
+    if (Object.keys(filters).length === 0) {
+      // Si no hay filtros, mostrar todos los usuarios
+      this.filteredUsers = this.users;
+    } else {
+      this.filteredUsers = this.users.filter(user => {
+        return (
+          (filters.first_name ? user.first_name.toLowerCase().includes(filters.first_name.toLowerCase()) : true) &&
+          (filters.middle_name ? user.middle_name.toLowerCase().includes(filters.middle_name.toLowerCase()) : true) &&
+          (filters.last_name ? user.last_name.toLowerCase().includes(filters.last_name.toLowerCase()) : true) &&
+          (filters.second_last_name ? user.second_last_name.toLowerCase().includes(filters.second_last_name.toLowerCase()) : true) &&
+          (filters.identification_type ? user.identification_type.toLowerCase().includes(filters.identification_type.toLowerCase()) : true) &&
+          (filters.identification_number ? user.identification_number.includes(filters.identification_number) : true) &&
+          (filters.country ? user.country.toLowerCase().includes(filters.country.toLowerCase()) : true) &&
+          (filters.email ? user.email.toLowerCase().includes(filters.email.toLowerCase()) : true) &&
+          (filters.status ? user.status.toLowerCase().includes(filters.status.toLowerCase()) : true)
+        );
+      });
+    }
+}}

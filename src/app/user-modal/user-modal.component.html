@@ -1,75 +1,154 @@
 <p>user-modal works!</p>
 <!-- Background overlay -->
 <div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg p-6 w-full max-w-lg">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold">Actualizar Usuario</h2>
-        <!-- Botón para cerrar el modal -->
-        <button (click)="onClose()" class="text-gray-500 hover:text-gray-700">
-          ✖
+  <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-bold">Actualizar Usuario</h2>
+      <!-- Botón para cerrar el modal -->
+      <button (click)="onClose()" class="text-gray-500 hover:text-gray-700">
+        ✖
+      </button>
+    </div>
+
+    <!-- Formulario para actualizar los datos del usuario -->
+    <form (ngSubmit)="onUpdateUser()">
+      <div class="mb-4">
+        <label class="block text-gray-700">Primer Nombre</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.first_name"
+          name="first_name"
+          class="border rounded w-full p-2"
+          (ngModelChange)="regenerateEmail()"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Segundo Nombre</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.middle_name"
+          name="middle_name"
+          class="border rounded w-full p-2"
+          (ngModelChange)="regenerateEmail()"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Primer Apellido</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.last_name"
+          name="last_name"
+          class="border rounded w-full p-2"
+          (ngModelChange)="regenerateEmail()"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Segundo Apellido</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.second_last_name"
+          name="second_last_name"
+          class="border rounded w-full p-2"
+          (ngModelChange)="regenerateEmail()"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Tipo de Identificación</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.identification_type"
+          name="identification_type"
+          class="border rounded w-full p-2"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Número de Identificación</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.identification_number"
+          name="identification_number"
+          class="border rounded w-full p-2"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700">País</label>
+        <input
+          type="text"
+          [(ngModel)]="updatedUser.country"
+          name="country"
+          class="border rounded w-full p-2"
+        />
+      </div>
+
+      <!-- Campo de correo actual -->
+      <div class="mb-4">
+        <label class="block text-gray-700">Correo Actual</label>
+        <input
+          type="email"
+          [value]="updatedUser.email"
+          class="border rounded w-full p-2"
+          disabled
+        />
+      </div>
+
+      <!-- Campo de área como select deshabilitado -->
+      <div class="mb-4">
+        <label class="block text-gray-700">Área</label>
+        <select
+          [(ngModel)]="updatedUser.area"
+          name="area"
+          class="border rounded w-full p-2"
+          
+        >
+          <option value="Administración">Administración</option>
+          <option value="Financiera">Financiera</option>
+          <option value="Compras">Compras</option>
+          <option value="Infraestructura">Infraestructura</option>
+          <option value="Operación">Operación</option>
+          <option value="Talento Humano">Talento Humano</option>
+          <option value="Servicios Varios">Servicios Varios</option>
+        </select>
+      </div>
+
+      <!-- Mostrar la fecha de registro deshabilitada -->
+      <div class="mb-4">
+        <label class="block text-gray-700">Fecha de Registro</label>
+        <input
+          type="date"
+          [(ngModel)]="updatedUser.hire_date"
+          name="hire_date"
+          class="border rounded w-full p-2"
+          disabled
+        />
+      </div>
+
+      <!-- Mostrar la fecha de edición actual -->
+      <div class="mb-4">
+        <label class="block text-gray-700">Fecha de Edición</label>
+        <input
+          type="date"
+          [(ngModel)]="updatedUser.edit_date"
+          name="edit_date"
+          class="border rounded w-full p-2"
+          [value]="todayDate"
+          disabled
+        />
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button type="button" (click)="onClose()" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">
+          Cancelar
+        </button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Actualizar
         </button>
       </div>
-  
-      <!-- Formulario para actualizar los datos del usuario -->
-      <form (ngSubmit)="onUpdateUser()">
-        <div class="mb-4">
-          <label class="block text-gray-700">Primer Nombre</label>
-          <input
-            type="text"
-            [(ngModel)]="updatedUser.first_name"
-            name="first_name"
-            class="border rounded w-full p-2"
-          />
-        </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700">Primer Apellido</label>
-          <input
-            type="text"
-            [(ngModel)]="updatedUser.last_name"
-            name="last_name"
-            class="border rounded w-full p-2"
-          />
-        </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700">Correo Electrónico</label>
-          <input
-            type="email"
-            [(ngModel)]="updatedUser.email"
-            name="email"
-            class="border rounded w-full p-2"
-            disabled
-          />
-        </div>
-  
-        <div class="mb-4">
-          <label class="block text-gray-700">Área</label>
-          <input
-            type="text"
-            [(ngModel)]="updatedUser.area"
-            name="area"
-            class="border rounded w-full p-2"
-          />
-        </div>
-  
-        <!-- Botones de acción -->
-        <div class="flex justify-end mt-4">
-          <button
-            type="button"
-            (click)="onClose()"
-            class="mr-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700"
-          >
-            Cancelar
-          </button>
-          <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Actualizar
-          </button>
-        </div>
-      </form>
-    </div>
+    </form>
   </div>
-  
+</div>

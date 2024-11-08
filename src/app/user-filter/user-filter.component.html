@@ -1,0 +1,55 @@
+<p>user-filter works!</p>
+<div class="filter-form mb-4">
+  <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()">
+    <div class="grid grid-cols-4 gap-4">
+      <div>
+        <label for="first_name">Primer Nombre</label>
+        <input id="first_name" formControlName="first_name" type="text" class="w-full p-2 border" (input)="onFilterChange()" />
+      </div>
+      <div>
+        <label for="middle_name">Otros Nombres</label>
+        <input id="middle_name" formControlName="middle_name" type="text" class="w-full p-2 border" (input)="onFilterChange()" />
+      </div>
+      <div>
+        <label for="last_name">Primer Apellido</label>
+        <input id="last_name" formControlName="last_name" type="text" class="w-full p-2 border" (input)="onFilterChange()" />
+      </div>
+      <div>
+        <label for="second_last_name">Segundo Apellido</label>
+        <input id="second_last_name" formControlName="second_last_name" type="text" class="w-full p-2 border" (input)="onFilterChange()" />
+      </div>
+      <div>
+        <label for="identification_type">Tipo de Identificación</label>
+        <select id="identification_type" formControlName="identification_type" class="w-full p-2 border" (change)="onFilterChange()">
+          <option value="">Seleccione</option>
+          <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+          <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="Permiso Especial">Permiso Especial</option>
+        </select>
+      </div>
+      <div>
+        <label for="identification_number">Número de Identificación</label>
+        <input id="identification_number" formControlName="identification_number" type="text" class="w-full p-2 border" (input)="onFilterChange()" />
+      </div>
+      <!-- Cambiar el campo País a un select con las opciones 'Colombia' y 'Estados Unidos' -->
+      <div>
+        <label for="country">País</label>
+        <select id="country" formControlName="country" class="w-full p-2 border" (change)="onFilterChange()">
+          <option value="">Seleccione</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+        </select>
+      </div>
+      <!-- Cambiar el campo Estado a un select con las opciones 'Activo' e 'Inactivo' -->
+      <div>
+        <label for="status">Estado</label>
+        <select id="status" formControlName="status" class="w-full p-2 border" (change)="onFilterChange()">
+          <option value="">Seleccione</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>

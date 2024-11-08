@@ -1,9 +1,12 @@
 <p>user-list works!</p>
+<div>
+  <app-user-filter (filtersChanged)="onFilterChanged($event)"></app-user-filter>
+</div>
   <!-- Botón para abrir el modal de registro -->
   <button (click)="openRegisterModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">
     Registrar Usuario
   </button>
-<div class="container mx-auto">
+<!-- <div class="container mx-auto">
     <h1 class="text-2xl font-bold mb-4">Lista de Usuarios</h1>
     <table class="min-w-full border-collapse block md:table">
       <thead class="block md:table-header-group">
@@ -21,16 +24,16 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
   <div class="container mx-auto mt-10">
     <h1 class="text-3xl font-bold mb-6">Lista de Usuarios</h1>
   
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <app-user-card
-        *ngFor="let user of users"
+        *ngFor="let user of filteredUsers"
         [user]="user"
         (updateUser)="handleUpdate($event)"
-        (deleteUser)="handleDelete($event)"
+        [loadUsers]="loadUsers.bind(this) " 
       >
       </app-user-card>
     </div>
@@ -47,9 +50,9 @@
  </app-user-modal>
 </div>
 <div>
-<!-- Modal de registro -->
-<app-user-register-modal 
-[showModal]="showRegisterModal"
-(close)="closeRegisterModal()">
-</app-user-register-modal>
-</div>
+  <!-- Modal de registro -->
+  <app-user-register-modal 
+  [showModal]="showRegisterModal"
+  [loadUsers]="loadUsers.bind(this) ">
+  </app-user-register-modal>
+  </div>
