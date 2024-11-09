@@ -4,8 +4,6 @@ import { UserService } from '../services/user-service.service';
 import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
 
-
-
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -27,10 +25,7 @@ export class UserListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  
-
-
-  constructor(private userService: UserService,private toastr: ToastrService) {}
+  constructor(private userService: UserService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -70,7 +65,7 @@ export class UserListComponent implements OnInit {
   // Cambiar el número de usuarios por página
   onPageSizeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
-    this.pageSize = parseInt(target.value, 10); 
+    this.pageSize = parseInt(target.value, 10);
     this.pageIndex = 0; // Reiniciar la página a la primera
     this.calculateTotalPages(); // Recalcular las páginas
     this.updatePagedUsers();
@@ -111,9 +106,9 @@ export class UserListComponent implements OnInit {
       },
       (error) => {
         this.toastr.error('La respuesta del servidor es inválida o no se recibió respuesta.', 'Error', {
-          positionClass: 'toast-top-right', 
-          timeOut: 3000, 
-          progressBar: true, 
+          positionClass: 'toast-top-right',
+          timeOut: 3000,
+          progressBar: true,
         });
         console.error('Error al actualizar el usuario', error);
       }
@@ -137,18 +132,20 @@ export class UserListComponent implements OnInit {
     } else {
       this.filteredUsers = this.users.filter(user => {
         return (
-          (filters.first_name ? user.first_name.toLowerCase().includes(filters.first_name.toLowerCase()) : true) &&
-          (filters.middle_name ? user.middle_name.toLowerCase().includes(filters.middle_name.toLowerCase()) : true) &&
-          (filters.last_name ? user.last_name.toLowerCase().includes(filters.last_name.toLowerCase()) : true) &&
-          (filters.second_last_name ? user.second_last_name.toLowerCase().includes(filters.second_last_name.toLowerCase()) : true) &&
-          (filters.identification_type ? user.identification_type.toLowerCase().includes(filters.identification_type.toLowerCase()) : true) &&
-          (filters.identification_number ? user.identification_number.includes(filters.identification_number) : true) &&
-          (filters.country ? user.country.toLowerCase().includes(filters.country.toLowerCase()) : true) &&
-          (filters.status ? user.status.toLowerCase().includes(filters.status.toLowerCase()) : true)
+          (filters.first_name ? user.first_name?.toLowerCase().includes(filters.first_name.toLowerCase()) : true) &&
+          (filters.middle_name ? user.middle_name?.toLowerCase().includes(filters.middle_name.toLowerCase()) : true) &&
+          (filters.last_name ? user.last_name?.toLowerCase().includes(filters.last_name.toLowerCase()) : true) &&
+          (filters.second_last_name ? user.second_last_name?.toLowerCase().includes(filters.second_last_name.toLowerCase()) : true) &&
+          (filters.identification_type ? user.identification_type?.toLowerCase().includes(filters.identification_type.toLowerCase()) : true) &&
+          (filters.identification_number ? user.identification_number?.includes(filters.identification_number) : true) &&
+          (filters.country ? user.country?.toLowerCase().includes(filters.country.toLowerCase()) : true) &&
+          (filters.status ? user.status?.toLowerCase().includes(filters.status.toLowerCase()) : true)
         );
       });
     }
-    this.calculateTotalPages(); // Recalcular las páginas cuando se aplique un filtro
+    
+    this.pageIndex = 0;  // Reiniciar a la primera página al aplicar un filtro
+    this.calculateTotalPages(); // Recalcular las páginas
     this.updatePagedUsers(); // Actualizar la paginación según los resultados filtrados
   }
 }

@@ -1,6 +1,15 @@
 <!-- <p>user-register-modal works!</p> -->
 <div class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" *ngIf="showRegisterModal">
-  <div class="bg-white p-6 rounded-lg w-1/3">
+  <div class="bg-white p-6 rounded-lg w-1/3 relative">
+
+    <button (click)="closeModalFunction()" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    
+
     <h2 class="text-xl font-bold mb-4">Registrar Nuevo Usuario</h2>
 
     <form (ngSubmit)="onRegister()" #form="ngForm">
@@ -180,14 +189,13 @@
         </div>
       </div>
 
-      <!-- Botón de Enviar -->
-      <div class="flex justify-end">
-        <button 
-          type="submit" 
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" 
-          [disabled]="form.invalid"
-        >
-          Registrar
+       <!-- Botones de Cancelar y Enviar -->
+       <div class="flex justify-end space-x-4">
+        <button (click)="closeModalFunction()" type="button" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">
+          Cancelar
+        </button>
+        <button type="submit" [disabled]="form.invalid" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Enviar
         </button>
       </div>
     </form>
