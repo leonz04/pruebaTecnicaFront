@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserRegisterModalComponent {
 
   @Output() closeModal = new EventEmitter(); // Evento para cerrar el modal
-  @Input() showRegisterModal: boolean = false; // Recibe el valor desde el componente padre
+  @Input() showRegisterModal: boolean = false; 
   @Input() loadUsers: any;
 
   constructor(private userService: UserService,private toastr: ToastrService) {}
@@ -48,7 +48,7 @@ export class UserRegisterModalComponent {
 
     const newUser: User = {
       hire_date: format,
-      id: 0, // Si el backend gestiona el ID, lo puedes omitir o dejar como 0
+      id: 0, // el backend gestiona el ID, lo se puede omitir o dejar como 0
       first_name: this.firstName,
       middle_name: this.middleName,
       last_name: this.lastName,
@@ -63,7 +63,6 @@ export class UserRegisterModalComponent {
     // Llamar al servicio para registrar el usuario
     this.userService.registerUser(newUser).subscribe(
       (response) => {
-        // Verificar si la respuesta es undefined
       if (response === undefined) {
         this.toastr.error('La respuesta del servidor es inválida o no se recibió respuesta.', 'Error', {
           positionClass: 'toast-top-right', 
@@ -72,7 +71,7 @@ export class UserRegisterModalComponent {
         });
         this.resetForm();
 
-        return; // Detener la ejecución si la respuesta es inválida
+        return; 
       }
 
       console.log('Usuario registrado correctamente:', response);
@@ -103,7 +102,7 @@ export class UserRegisterModalComponent {
     
     
     
-    this.closeModal.emit(); // Emitir el evento al componente padre
+    this.closeModal.emit(); 
   }
 
   // Método para resetear los campos del formulario
@@ -123,6 +122,6 @@ export class UserRegisterModalComponent {
   // Método para cerrar el modal
   closeModalFunction() {
     this.showRegisterModal = false;
-    this.closeModal.emit(); // Emitir el evento de cerrar el modal
+    this.closeModal.emit(); 
   }
 }

@@ -8,8 +8,8 @@ import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core
 })
 export class UserModalComponent implements OnChanges {
   @Input() user: any;  // Recibe los datos del usuario a editar
-  @Output() closeModal = new EventEmitter<void>();  // Emite un evento para cerrar el modal
-  @Output() updateUser = new EventEmitter<any>();  // Emite los datos del usuario actualizado
+  @Output() closeModal = new EventEmitter<void>();  
+  @Output() updateUser = new EventEmitter<any>();  
 
 
 
@@ -21,7 +21,7 @@ export class UserModalComponent implements OnChanges {
     if (this.user && Object.keys(this.user).length > 0) {
       this.updatedUser = { ...this.user };  // Copia de los datos del usuario a actualizar
     } else {
-      this.updatedUser = {};  // Limpia los datos si no se recibe usuario
+      this.updatedUser = {};  
     }
   }
 
@@ -39,10 +39,8 @@ export class UserModalComponent implements OnChanges {
 
   // Método para actualizar los datos del usuario
   onUpdateUser() {
-    // Asigna la fecha de edición antes de emitir los cambios
     this.updatedUser.edit_date = this.todayDate;
 
-    // Emite los datos actualizados al componente padre
     this.updateUser.emit(this.updatedUser);
   }
 

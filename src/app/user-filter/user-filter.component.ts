@@ -8,8 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class UserFilterComponent {
 
-  filterForm: FormGroup; // Formulario para filtros
-
+  filterForm: FormGroup; 
   @Output() filtersChanged = new EventEmitter<any>(); // Emite los filtros al componente padre
 
   constructor(private fb: FormBuilder) {
@@ -26,7 +25,6 @@ export class UserFilterComponent {
     });
   }
 
-  // Emitir filtros cada vez que cambian
   onFilterChange() {
     this.filtersChanged.emit(this.filterForm.value);
   }

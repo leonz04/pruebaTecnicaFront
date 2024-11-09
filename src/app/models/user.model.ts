@@ -10,6 +10,4 @@ export interface User {
     hire_date:string;
     area:string;
     status:string
-
-    // Agrega otras propiedades necesarias
   }

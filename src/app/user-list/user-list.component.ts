@@ -70,7 +70,7 @@ export class UserListComponent implements OnInit {
   // Cambiar el número de usuarios por página
   onPageSizeChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
-    this.pageSize = parseInt(target.value, 10); // Asegúrate de convertir el valor a un número
+    this.pageSize = parseInt(target.value, 10); 
     this.pageIndex = 0; // Reiniciar la página a la primera
     this.calculateTotalPages(); // Recalcular las páginas
     this.updatePagedUsers();

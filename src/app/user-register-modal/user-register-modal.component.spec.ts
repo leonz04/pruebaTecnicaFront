@@ -33,13 +33,13 @@ describe('UserRegisterModalComponent', () => {
     fixture = TestBed.createComponent(UserRegisterModalComponent);
     component = fixture.componentInstance;
 
-    // Inicializar cualquier valor necesario en el componente antes de llamar a onRegister()
-    component.showRegisterModal = true;  // Asegúrate de que esta propiedad esté correctamente definida
-    component.resetForm = jasmine.createSpy('resetForm');  // Espiar el método resetForm
+    
+    component.showRegisterModal = true;  
+    // component.resetForm = jasmine.createSpy('resetForm');  
 
     fixture.detectChanges();  // Detectar los cambios en el componente
 
-    // Asegúrate de que el espía está devolviendo una función para loadUsers
+    
   });
 
   it('should call registerUser with the correct parameters', fakeAsync(() => {
@@ -57,7 +57,6 @@ describe('UserRegisterModalComponent', () => {
       status: 'Activo'
     };
 
-    // Mock de la respuesta del servicio
     userServiceSpy.registerUser.and.returnValue(of({ ...userData, id: 1 }));
 
     // Asignar los valores al componente
@@ -72,11 +71,9 @@ describe('UserRegisterModalComponent', () => {
     component.area = userData.area;
     component.status = userData.status;
 
-    // Llamar a onRegister
     component.onRegister();
     tick();
 
-    // Verificar que registerUser fue llamado correctamente
     expect(userServiceSpy.registerUser).toHaveBeenCalledWith({
       id: 0,
       first_name: 'ANDRES',
@@ -94,7 +91,6 @@ describe('UserRegisterModalComponent', () => {
    
 
     
-    // Verificar que toastr se haya llamado
     expect(toastrServiceSpy.success).toHaveBeenCalledWith('Usuario registrado con éxito', 'Registro exitoso');
   }));
 
