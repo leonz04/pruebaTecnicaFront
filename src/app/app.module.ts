@@ -12,6 +12,11 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
 import { UserRegisterModalComponent } from './user-register-modal/user-register-modal.component';
 import { DatePipe } from '@angular/common';
 import { UserFilterComponent } from './user-filter/user-filter.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 @NgModule({
   declarations: [
@@ -21,7 +26,8 @@ import { UserFilterComponent } from './user-filter/user-filter.component';
     UserCardComponent,
     ConfirmDeleteComponent,
     UserRegisterModalComponent,
-    UserFilterComponent
+    UserFilterComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -29,6 +35,9 @@ import { UserFilterComponent } from './user-filter/user-filter.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule, // Requerido para animaciones de Toastr
+    ToastrModule.forRoot(),  // Configuración global de Toastr
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

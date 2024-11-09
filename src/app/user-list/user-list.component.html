@@ -1,58 +1,99 @@
-<p>user-list works!</p>
-<div>
-  <app-user-filter (filtersChanged)="onFilterChanged($event)"></app-user-filter>
-</div>
-  <!-- Botón para abrir el modal de registro -->
-  <button (click)="openRegisterModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">
-    Registrar Usuario
-  </button>
-<!-- <div class="container mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Lista de Usuarios</h1>
-    <table class="min-w-full border-collapse block md:table">
-      <thead class="block md:table-header-group">
-        <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
-          <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">ID</th>
-          <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Nombre</th>
-          <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Correo</th>
-        </tr>
-      </thead>
-      <tbody class="block md:table-row-group">
-        <tr *ngFor="let user of users" class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
-          <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{ user.id }}</td>
-          <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{ user.first_name }} {{ user.last_name }}</td>
-          <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{ user.email }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div> -->
-  <div class="container mx-auto mt-10">
-    <h1 class="text-3xl font-bold mb-6">Lista de Usuarios</h1>
-  
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <app-user-card
-        *ngFor="let user of filteredUsers"
-        [user]="user"
-        (updateUser)="handleUpdate($event)"
-        [loadUsers]="loadUsers.bind(this) " 
-      >
-      </app-user-card>
+  <div class="bg-gray-100">
+
+    <!-- Encabezado con logo y título -->
+    <header class="bg-blue-600 text-white p-4 flex items-center justify-between">
+      <!-- Logo de la empresa -->
+      <img src="https://globaltecnoacademy.com/wp-content/uploads/2023/03/logo.png" alt="Logo de la Empresa" class="h-12" />
+      
+      <!-- Título de la página -->
+      <h1 class="text-2xl font-semibold">Registro de Empleados</h1>
+    </header>
+
+    <!-- Botón para abrir el modal de registro -->
+    <div class="flex flex-col items-start justify-between mt-4  w-4/5 mx-auto">
+      <!-- Botón para abrir el modal de registro -->
+      <button (click)="openRegisterModal()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">
+        Registrar Usuario
+      </button>
+    
+      <!-- Filtros -->
+      <app-user-filter (filtersChanged)="onFilterChanged($event)"></app-user-filter>
+      
     </div>
 
-  </div>
-  <div>
-   <!-- Mostrar el modal solo si showModal es verdadero -->
-   <app-user-modal
-   *ngIf="showModal"
-   [user]="selectedUser"
-   (closeModal)="closeModal()"
-   (updateUser)="updateUser($event)"
- >
- </app-user-modal>
-</div>
-<div>
-  <!-- Modal de registro -->
-  <app-user-register-modal 
-  [showModal]="showRegisterModal"
-  [loadUsers]="loadUsers.bind(this) ">
-  </app-user-register-modal>
+    
+
+    <div class="container mx-auto mt-10">
+      <div class="flex justify-between items-center mb-5">
+        <h1 class="text-3xl font-bold">Lista de Usuarios</h1>
+        
+        <!-- Opción de seleccionar la cantidad de usuarios por página -->
+        <div class="flex items-center">
+          <label for="pageSize" class="mr-2">Usuarios por página:</label>
+          <select id="pageSize" (change)="onPageSizeChange($event)" class="p-2 border rounded">
+            <option value="2">2</option>
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <app-user-card
+          *ngFor="let user of pagedUsers"  
+          [user]="user"
+          (updateUser)="handleUpdate($event)"
+          [loadUsers]="loadUsers.bind(this)">
+        </app-user-card>
+      </div>
+    </div>
+
+    <!-- Paginación numerada -->
+    <div class="flex justify-center mt-6">
+      <button
+        (click)="goToPage(pageIndex - 1)"
+        [disabled]="pageIndex === 0"
+        class="px-4 py-2 mx-1 text-white bg-blue-500 rounded hover:bg-blue-700"
+      >
+        Anterior
+      </button>
+
+      <ng-container *ngFor="let page of pageNumbers">
+        <button
+          (click)="goToPage(page)"
+          [class.bg-blue-500]="page === pageIndex"
+          [class.hover:bg-blue-700]="page !== pageIndex"
+          class="px-4 py-2 mx-1 text-black rounded font-bold"
+        >
+          {{ page + 1 }}
+        </button>
+      </ng-container>
+
+      <button
+        (click)="goToPage(pageIndex + 1)"
+        [disabled]="pageIndex === totalPages - 1"
+        class="px-4 py-2 mx-1 text-white bg-blue-500 rounded hover:bg-blue-700"
+      >
+        Siguiente
+      </button>
+    </div>
+
+    <!-- Mostrar el modal solo si showModal es verdadero -->
+    <div>
+      <app-user-modal
+        *ngIf="showModal"
+        [user]="selectedUser"
+        (closeModal)="closeModal()"
+        (updateUser)="updateUser($event)">
+      </app-user-modal>
+    </div>
+
+    <!-- Modal de registro -->
+    <div>
+      <app-user-register-modal 
+        [showRegisterModal]="showRegisterModal"
+        (closeModal)="closeRegisterModal()"
+        [loadUsers]="loadUsers.bind(this)">
+      </app-user-register-modal>
+    </div>
   </div>

@@ -1,74 +1,171 @@
-<p>user-register-modal works!</p>
-<div class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" *ngIf="showModal">
-    <div class="bg-white p-6 rounded-lg w-1/3">
-      <h2 class="text-xl font-bold mb-4">Registrar Nuevo Usuario</h2>
+<!-- <p>user-register-modal works!</p> -->
+<div class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center" *ngIf="showRegisterModal">
+  <div class="bg-white p-6 rounded-lg w-1/3">
+    <h2 class="text-xl font-bold mb-4">Registrar Nuevo Usuario</h2>
+
+    <form (ngSubmit)="onRegister()" #form="ngForm">
+      <!-- Primer Nombre -->
+      <div class="mb-4">
+        <label for="firstName" class="block text-sm font-semibold">Primer Nombre</label>
+        <input 
+          id="firstName" 
+          [(ngModel)]="firstName" 
+          name="firstName" 
+          class="w-full p-2 border rounded" 
+          required 
+          pattern="^[A-Za-z]{1,20}$" 
+          #firstNameInput="ngModel" 
+          [ngClass]="{'border-red-500': firstNameInput.invalid && firstNameInput.touched}"
+        />
+        <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-red-500 text-sm">
+          El primer nombre es obligatorio y solo debe contener letras (máximo 20 caracteres).
+        </div>
+      </div>
       
-      <form (ngSubmit)="onRegister()" #form="ngForm">
-        <!-- Primer Nombre -->
-        <div class="mb-4">
-          <label for="firstName" class="block text-sm font-semibold">Primer Nombre</label>
-          <input id="firstName" [(ngModel)]="firstName" name="firstName" class="w-full p-2 border rounded" required />
+      <!-- Segundo Nombre -->
+      <div class="mb-4">
+        <label for="middleName" class="block text-sm font-semibold">Segundo Nombre</label>
+        <input 
+          id="middleName" 
+          [(ngModel)]="middleName" 
+          name="middleName" 
+          class="w-full p-2 border rounded" 
+          pattern="^[A-Z ]{1,20}$" 
+          #middleNameInput="ngModel" 
+          [ngClass]="{'border-red-500': middleNameInput.invalid && middleNameInput.touched}"
+        />
+        <div *ngIf="middleNameInput.invalid && middleNameInput.touched" class="text-red-500 text-sm">
+          El segundo nombre debe contener solo letras (máximo 20 caracteres).
         </div>
-        
-        <!-- Segundo Nombre -->
-        <div class="mb-4">
-          <label for="middleName" class="block text-sm font-semibold">Segundo Nombre</label>
-          <input id="middleName" [(ngModel)]="middleName" name="middleName" class="w-full p-2 border rounded" />
+      </div>
+      
+      <!-- Apellido -->
+      <div class="mb-4">
+        <label for="lastName" class="block text-sm font-semibold">Primer Apellido</label>
+        <input 
+          id="lastName" 
+          [(ngModel)]="lastName" 
+          name="lastName" 
+          class="w-full p-2 border rounded" 
+          required 
+          pattern="^[A-Z ]{1,20}$" 
+          #lastNameInput="ngModel" 
+          [ngClass]="{'border-red-500': lastNameInput.invalid && lastNameInput.touched}"
+        />
+        <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-red-500 text-sm">
+          El primer apellido es obligatorio y debe contener solo letras (máximo 20 caracteres).
         </div>
-        
-        <!-- Apellido -->
-        <div class="mb-4">
-          <label for="lastName" class="block text-sm font-semibold">Primer Apellido</label>
-          <input id="lastName" [(ngModel)]="lastName" name="lastName" class="w-full p-2 border rounded" required />
+      </div>
+
+      <!-- Segundo Apellido -->
+      <div class="mb-4">
+        <label for="secondLastName" class="block text-sm font-semibold">Segundo Apellido</label>
+        <input 
+          id="secondLastName" 
+          [(ngModel)]="secondLastName" 
+          name="secondLastName" 
+          class="w-full p-2 border rounded" 
+          pattern="^[A-Z]{1,20}$" 
+          #secondLastNameInput="ngModel" 
+          [ngClass]="{'border-red-500': secondLastNameInput.invalid && secondLastNameInput.touched}"
+        />
+        <div *ngIf="secondLastNameInput.invalid && secondLastNameInput.touched" class="text-red-500 text-sm">
+          El segundo apellido debe contener solo letras (máximo 20 caracteres).
         </div>
-        
-        <!-- Segundo Apellido -->
-        <div class="mb-4">
-          <label for="secondLastName" class="block text-sm font-semibold">Segundo Apellido</label>
-          <input id="secondLastName" [(ngModel)]="secondLastName" name="secondLastName" class="w-full p-2 border rounded" />
+      </div>
+
+      <!-- País -->
+      <div class="mb-4">
+        <label for="country" class="block text-sm font-semibold">País</label>
+        <select 
+          id="country" 
+          [(ngModel)]="country" 
+          name="country" 
+          class="w-full p-2 border rounded" 
+          required 
+          #countryInput="ngModel" 
+          [ngClass]="{'border-red-500': countryInput.invalid && countryInput.touched}"
+        >
+          <option value="">Seleccione</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+        </select>
+        <div *ngIf="countryInput.invalid && countryInput.touched" class="text-red-500 text-sm">
+          El país es obligatorio.
         </div>
-  
-        <!-- País (con opciones Colombia y Estados Unidos) -->
-        <div class="mb-4">
-          <label for="country" class="block text-sm font-semibold">País</label>
-          <select id="country" [(ngModel)]="country" name="country" class="w-full p-2 border rounded" required>
-            <option value="">Seleccione</option>
-            <option value="Colombia">Colombia</option>
-            <option value="Estados Unidos">Estados Unidos</option>
-          </select>
+      </div>
+
+      <!-- Tipo de Identificación -->
+      <div class="mb-4">
+        <label for="identificationType" class="block text-sm font-semibold">Tipo de Identificación</label>
+        <select 
+          id="identificationType" 
+          [(ngModel)]="identificationType" 
+          name="identificationType" 
+          class="w-full p-2 border rounded" 
+          required 
+          #identificationTypeInput="ngModel" 
+          [ngClass]="{'border-red-500': identificationTypeInput.invalid && identificationTypeInput.touched}"
+        >
+          <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
+          <option value="Cédula de Extranjería">Cédula de Extranjería</option>
+          <option value="Pasaporte">Pasaporte</option>
+          <option value="Permiso Especial">Permiso Especial</option>
+        </select>
+        <div *ngIf="identificationTypeInput.invalid && identificationTypeInput.touched" class="text-red-500 text-sm">
+          El tipo de identificación es obligatorio.
         </div>
-        
-        <!-- Tipo de Identificación -->
-        <div class="mb-4">
-          <label for="identificationType" class="block text-sm font-semibold">Tipo de Identificación</label>
-          <select id="identificationType" [(ngModel)]="identificationType" name="identificationType" class="w-full p-2 border rounded" required>
-            <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-            <option value="Cédula de Extranjería">Cédula de Extranjería</option>
-            <option value="Pasaporte">Pasaporte</option>
-            <option value="Permiso Especial">Permiso Especial</option>
-          </select>
+      </div>
+
+      <!-- Número de Identificación -->
+      <div class="mb-4">
+        <label for="identificationNumber" class="block text-sm font-semibold">Número de Identificación</label>
+        <input 
+          id="identificationNumber" 
+          [(ngModel)]="identificationNumber" 
+          name="identificationNumber" 
+          class="w-full p-2 border rounded" 
+          required 
+          pattern="^[a-zA-Z0-9-]+$" 
+          #identificationNumberInput="ngModel" 
+          [ngClass]="{'border-red-500': identificationNumberInput.invalid && identificationNumberInput.touched}"
+        />
+        <div *ngIf="identificationNumberInput.invalid && identificationNumberInput.touched" class="text-red-500 text-sm">
+          El número de identificación es obligatorio y debe contener solo números (entre 5 y 15 caracteres).
         </div>
-        
-        <!-- Número de Identificación -->
-        <div class="mb-4">
-          <label for="identificationNumber" class="block text-sm font-semibold">Número de Identificación</label>
-          <input id="identificationNumber" [(ngModel)]="identificationNumber" name="identificationNumber" class="w-full p-2 border rounded" required />
+      </div>
+
+      <!-- Fecha de Contratación -->
+      <div class="mb-4">
+        <label for="hireDate" class="block text-sm font-semibold">Fecha de Contratación</label>
+        <input 
+          id="hireDate" 
+          type="date" 
+          [(ngModel)]="hireDate" 
+          name="hireDate" 
+          class="w-full p-2 border rounded" 
+          [max]="maxDate" 
+          [min]="minDate" 
+          required 
+          #hireDateInput="ngModel" 
+          [ngClass]="{'border-red-500': hireDateInput.invalid && hireDateInput.touched}"
+        />
+        <div *ngIf="hireDateInput.invalid && hireDateInput.touched" class="text-red-500 text-sm">
+          La fecha de contratación es obligatoria.
         </div>
-  
-        <!-- Fecha de Contratación -->
-        <div class="mb-4">
-          <label for="hireDate" class="block text-sm font-semibold">Fecha de Contratación</label>
-          <input id="hireDate" type="date" [(ngModel)]="hireDate" name="hireDate" class="w-full p-2 border rounded" required />
-        </div>
-  
-        <!-- Área -->
-        <div class="mb-4">
-          <label for="area" class="block text-sm font-semibold">Área</label>
-          <select
-          [(ngModel)]="area"
-          name="area"
-          class="border rounded w-full p-2"
-          
+      </div>
+
+      <!-- Área -->
+      <div class="mb-4">
+        <label for="area" class="block text-sm font-semibold">Área</label>
+        <select 
+          id="area" 
+          [(ngModel)]="area" 
+          name="area" 
+          class="w-full p-2 border rounded" 
+          required 
+          #areaInput="ngModel" 
+          [ngClass]="{'border-red-500': areaInput.invalid && areaInput.touched}"
         >
           <option value="Administración">Administración</option>
           <option value="Financiera">Financiera</option>
@@ -78,13 +175,21 @@
           <option value="Talento Humano">Talento Humano</option>
           <option value="Servicios Varios">Servicios Varios</option>
         </select>
+        <div *ngIf="areaInput.invalid && areaInput.touched" class="text-red-500 text-sm">
+          El área es obligatoria.
         </div>
-  
-        <!-- Estado eliminado -->
-        
-        <div class="flex justify-end">
-          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Registrar</button>
-        </div>
-      </form>
-    </div>
+      </div>
+
+      <!-- Botón de Enviar -->
+      <div class="flex justify-end">
+        <button 
+          type="submit" 
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700" 
+          [disabled]="form.invalid"
+        >
+          Registrar
+        </button>
+      </div>
+    </form>
   </div>
+</div>

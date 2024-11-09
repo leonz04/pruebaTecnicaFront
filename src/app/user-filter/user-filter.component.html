@@ -1,6 +1,7 @@
-<p>user-filter works!</p>
-<div class="filter-form mb-4">
-  <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()">
+<!-- <p>user-filter works!</p> -->
+<div class="mb-3 mt-5">
+  <h2 class="text-3xl font-bold">Filtros</h2>
+  <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()" class="mt-4">
     <div class="grid grid-cols-4 gap-4">
       <div>
         <label for="first_name">Primer Nombre</label>
