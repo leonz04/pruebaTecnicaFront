@@ -28,7 +28,9 @@ export class UserModalComponent implements OnChanges {
   // Función para regenerar el correo cuando se modifican los nombres o apellidos
   regenerateEmail() {
     if (this.updatedUser.first_name && this.updatedUser.last_name) {
-      this.updatedUser.email = `${this.updatedUser.first_name}.${this.updatedUser.last_name}@empresa.com`.toLowerCase();
+      const baseEmail = `${this.updatedUser.first_name.toLowerCase()}.${this.updatedUser.last_name.toLowerCase()}`;
+      const domain = this.updatedUser.country === 'Colombia' ? 'global.com.co' : 'global.com.us';
+      this.updatedUser.email = `${baseEmail}@${domain}`;
     }
   }
 
