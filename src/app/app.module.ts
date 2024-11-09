@@ -39,7 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule, // Requerido para animaciones de Toastr
     ToastrModule.forRoot(),  // Configuración global de Toastr
   ],
-  providers: [DatePipe],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

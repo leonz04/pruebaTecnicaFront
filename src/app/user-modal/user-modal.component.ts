@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -12,7 +11,6 @@ export class UserModalComponent implements OnChanges {
   @Output() closeModal = new EventEmitter<void>();  // Emite un evento para cerrar el modal
   @Output() updateUser = new EventEmitter<any>();  // Emite los datos del usuario actualizado
 
-  constructor(private toastr: ToastrService) {}
 
 
   updatedUser: any = {};  // Almacena los datos del usuario que se van a actualizar

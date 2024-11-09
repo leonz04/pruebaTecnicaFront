@@ -43,7 +43,7 @@ export class UserRegisterModalComponent {
 
   // Método para registrar el nuevo usuario
   onRegister() {
-    let format = new Date(this.hireDate).toLocaleDateString('en-CA');
+    let format = new Date(this.hireDate).toISOString().split('T')[0];
     console.log(format);
 
     const newUser: User = {

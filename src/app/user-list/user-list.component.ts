@@ -26,6 +26,7 @@ export class UserListComponent implements OnInit {
   showRegisterModal = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
   
 
 
